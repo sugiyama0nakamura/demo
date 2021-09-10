@@ -1,5 +1,8 @@
 package com.example.spring.demo.Service;
 
+import java.util.List;
+
+import com.example.spring.demo.Dto.DemoDto;
 import com.example.spring.demo.Repository.DemoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +23,10 @@ public class DemoService {
   public String init(){
     return demoRepository.init();
   }
-  
+
+  public DemoDto sample(){
+    DemoDto demoDto = demoRepository.sample();
+    return demoDto;
+  }
+
 }

@@ -15,7 +15,7 @@ public class MessageUtil {
   /**
    * idが複重しています。
    */
-  public static final String E_000_000 = "i複dが重しています。";
+  public static final String E_000_000 = "id重複がしています。";
 
   /**
    * 本日以降を選択してください。
