@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @author @sugiyama
@@ -22,8 +23,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ListMapper {
 
-  @Select("SELECT board_id, board_name, board_description, list_id, list_name, card_id, card_name, card_details FROM BOARDS BD inner join LISTS LT ON BD.board_id = LT.board_id left join CARDS CD BD.board_id = CD.board_id where ")
-  List<BoardDto> getList(Integer boardId);
   /**
    * ボード情報の取得
    * 
@@ -59,7 +58,36 @@ public interface ListMapper {
 
   /**
    * リスト作成
+   * 
+   * @param boardId ボード番号
+   * @param listName リスト名
+   * @param deadlineStartDate 開始日
+   * @param deadlineEndDate 終了日
+   * @return
    */
-  @Insert("INSERT INTO LIST (list_id, board_id, list_name, created_day, delete_flg, deadline_start_date, deadline_end_date) VALUES (serial, #{boardId}, #{list_name}, current_timestamp, #{deadline_start_date}, #{deadline_end_date})")
-  boolean createList(Integer board_id, String list_name, Timestamp deadline_start_date, Timestamp deadline_end_date);
+  @Insert("INSERT INTO LIST (list_id, user_id, board_id, list_name, create_user, created_day, delete_flg, deadline_start_date, deadline_end_date) VALUES (serial, null, #{boardId}, #{listName}, null, current_timestamp, 0, #{deadlineStartDate}, #{deadlineEndDate})")
+  boolean createList(Integer boardId, String listName, Timestamp deadlineStartDate, Timestamp deadlineEndDate);
+
+  /**
+   * リスト更新
+   * 
+   * @param list_id リスト番号
+   * @param board_id ボード番号
+   * @param list_name リスト名
+   * @param deadline_start_date 開始日
+   * @param deadline_end_date 終了日
+   * @return
+   */
+  @Update("UPDATE LISTS SET list_name = #{listName}, update_user = null, update_day =  current_timestamp, deadline_start_date = #{deadlineStartDate}, deadline_end_date = #{deadlineEndDate} where list_id = #{listId} and board_id = #{boardId}")
+  boolean updateList(Integer listId, Integer boardId, String listName, Timestamp deadlineStartDate, Timestamp deadlineEndDate);
+  
+  /**
+   * リスト削除
+   * 
+   * @param listId リスト番号
+   * @param boardId ボード番号
+   * @return
+   */
+  @Update("UPDATE LISTS SET delete_flg = 1, update_user = null, update_day = current_timestamp where list_id = #{listId} and board_id = #{boardId}")
+  boolean deleteList(Integer listId, Integer boardId);
 }

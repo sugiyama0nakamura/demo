@@ -1,7 +1,6 @@
 package com.example.spring.demo.Facade;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.security.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,5 +53,39 @@ public class ListFacade {
       list.put("card" + i, cardInfo.get(i));
     }
     return list;
-  }  
+  }
+
+  /**
+   * リスト作成
+   * 
+   * @param board_id ボード番号
+   * @param list_name リスト名
+   * @param deadline_start_date 開始日
+   * @param deadline_end_date 終了日
+   * @return
+   */
+  public boolean createList (Integer board_id, String list_name, Timestamp deadline_start_date, Timestamp deadline_end_date) {
+    listService.createList(board_id, list_name, deadline_start_date, deadline_end_date);
+    return true;
+  }
+
+  /**
+   * リスト更新
+   * 
+   * @param list_id リスト番号
+   * @param board_id ボード番号
+   * @param list_name リスト名
+   * @param deadline_start_date 開始日
+   * @param deadline_end_date 終了日
+   * @return
+   */
+  public boolean updateList(Integer listId, Integer boardId, String listName, Timestamp deadlineStartDate, Timestamp deadlineEndDate){
+    listService.updateList(listId, boardId, listName, deadlineStartDate, deadlineEndDate);
+    return true;
+  }
+
+  public boolean deleteList(Integer listId, Integer boardId){
+    listService.deleteList(listId, boardId);
+    return true;
+  }
 }

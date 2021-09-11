@@ -1,5 +1,7 @@
 package com.example.spring.demo.Controller;
 
+import java.security.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,50 +52,63 @@ public class ListController {
    * リストを作成する
    */
   @PostMapping("/api/v1/list")
-  public List createList(){
-    Integer board_id = 1;
-    Integer list_id = 1;
-
-    return null;
+  public Map<String, Object> createList(@PathVariable Integer board_id, String list_name, Timestamp deadline_start_date, Timestamp deadline_end_date){
+    Map<String, Object> map = new HashMap<String, Object>();
+    listFacade.createList(board_id, list_name, deadline_start_date, deadline_end_date);
+    return map;
   }
 
   /**
-   * リストを更新する
+   * リスト更新
+   * 
+   * @param list_id リスト番号
+   * @param board_id ボード番号
+   * @param list_name リスト名
+   * @param deadline_start_date 開始日
+   * @param deadline_end_date 終了日
+   * @return
    */
   @GetMapping("/api/v1/update/list")
-  public List updateList(ListForm form){
-    return null;
+  public Map<String, Object> updateList(@PathVariable Integer listId, Integer boardId, String listName, Timestamp deadlineStartDate, Timestamp deadlineEndDate){
+    Map<String, Object> map = new HashMap<String, Object>();
+    listFacade.updateList(listId, boardId, listName, deadlineStartDate, deadlineEndDate);
+    return map;
   }
 
   /**
    * リストを削除する
    */  
   @GetMapping("/api/v1/delete/list")
-  public List deleteList(ListForm form){
-    return null;
+  public Map<String, Object> deleteList(Integer listId, Integer boardId){
+    Map<String, Object> map = new HashMap<String, Object>();
+    listFacade.deleteList(listId, boardId);
+    return map;
   }
 
   /**
    * カードを作成する
    */
   @PostMapping("/api/v1/cards")
-  public List createCard(ListForm form){
-    return null;
+  public Map<String, Object> createCard(ListForm form){
+    Map<String, Object> map = new HashMap<String, Object>();
+    return map;
   }
 
   /**
    * カードを削除する
    */
   @PostMapping("/api/v1/delete/cards")
-  public List deleteCard(ListForm form){
-    return null;
+  public Map<String, Object> deleteCard(ListForm form){
+    Map<String, Object> map = new HashMap<String, Object>();
+    return map;
   }
 
   /**
    * カードを更新する
    */
   @PostMapping("/api/v1/update/cards")
-  public List updateCard(ListForm form){
-    return null;
+  public Map<String, Object> updateCard(ListForm form){
+    Map<String, Object> map = new HashMap<String, Object>();
+    return map;
   }
 }

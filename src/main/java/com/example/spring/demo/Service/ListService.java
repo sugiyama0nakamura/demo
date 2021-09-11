@@ -1,7 +1,6 @@
 package com.example.spring.demo.Service;
 
 import java.security.Timestamp;
-import java.util.Collection;
 import java.util.List;
 
 import com.example.spring.demo.Dto.BoardDto;
@@ -85,5 +84,31 @@ public class ListService {
     return true;
   }
 
+  /**
+   * リスト更新
+   * 
+   * @param list_id リスト番号
+   * @param board_id ボード番号
+   * @param list_name リスト名
+   * @param deadline_start_date 開始日
+   * @param deadline_end_date 終了日
+   * @return
+   */
+  public boolean updateList(Integer listId, Integer boardId, String listName, Timestamp deadlineStartDate, Timestamp deadlineEndDate){
+    listMapper.updateList(listId, boardId, listName, deadlineStartDate, deadlineEndDate);
+    return true;
+  }
+
+  /**
+   * リスト削除
+   * 
+   * @param listId リスト番号
+   * @param boardId ボード番号
+   * @return
+   */
+  public boolean deleteList(Integer listId, Integer boardId){
+    listMapper.deleteList(listId, boardId);
+    return true;
+  }
   
 }
